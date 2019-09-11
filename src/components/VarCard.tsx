@@ -9,10 +9,14 @@ import {
   CardTitle,
   Col,
   Collapse,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
   Input,
   InputGroup,
   InputGroupAddon,
-  Row
+  Row,
+  UncontrolledButtonDropdown
 } from "reactstrap";
 
 // Project Components
@@ -43,6 +47,8 @@ type NameStatus =
   | "Name already selected!"
   | "Valid";
 
+type AveragingOptions = "avg" | "def" | "std" | "wgt";
+
 interface IVarCardProps {
   variable: Variable;
   varSelectionChanged: ISignal<VarLoader, Variable[]>;
@@ -54,6 +60,7 @@ interface IVarCardProps {
   selected: boolean; // should the axis be hidden by default
 }
 interface IVarCardState {
+  averaging: AveragingOptions;
   variable: Variable;
   nameValue: string;
   showAxis: boolean;
@@ -69,6 +76,7 @@ export default class VarCard extends React.Component<
   constructor(props: IVarCardProps) {
     super(props);
     this.state = {
+      averaging: "def",
       axisState: [],
       nameState: "Valid",
       nameValue: "",
@@ -142,6 +150,23 @@ export default class VarCard extends React.Component<
     });
     this.setState({ variable: updatedVar });
   }
+
+  public setAveraging(option: AveragingOptions) {
+    this.setState({ averaging: option });
+  }
+
+  public setDef = () => {
+    this.setAveraging("def");
+  };
+  public setAvg = () => {
+    this.setAveraging("avg");
+  };
+  public setWgt = () => {
+    this.setAveraging("wgt");
+  };
+  public setStd = () => {
+    this.setAveraging("std");
+  };
 
   public render(): JSX.Element {
     // Set the input color
@@ -251,7 +276,7 @@ export default class VarCard extends React.Component<
                   item.updateDimInfo = this.updateDimensionInfo;
                   return (
                     <div key={item.name} style={axisStyle}>
-                      <Card>
+                      <Card className="clear-fix">
                         <CardBody
                           className={
                             /*@tag<varcard-dimension>*/ "varcard-dimension-vcdat"
@@ -261,6 +286,33 @@ export default class VarCard extends React.Component<
                             {...item}
                             varID={this.state.variable.varID}
                           />
+                          <UncontrolledButtonDropdown className="float-right">
+                            <DropdownToggle caret={true}>
+                              {this.state.averaging}
+                            </DropdownToggle>
+                            <DropdownMenu>
+                              {this.state.averaging !== "def" && (
+                                <DropdownItem onClick={this.setDef}>
+                                  Def
+                                </DropdownItem>
+                              )}
+                              {this.state.averaging !== "avg" && (
+                                <DropdownItem onClick={this.setAvg}>
+                                  Avg
+                                </DropdownItem>
+                              )}
+                              {this.state.averaging !== "wgt" && (
+                                <DropdownItem onClick={this.setWgt}>
+                                  Wgt
+                                </DropdownItem>
+                              )}
+                              {this.state.averaging !== "std" && (
+                                <DropdownItem onClick={this.setStd}>
+                                  Std
+                                </DropdownItem>
+                              )}
+                            </DropdownMenu>
+                          </UncontrolledButtonDropdown>
                         </CardBody>
                       </Card>
                     </div>
