@@ -11,6 +11,8 @@ from EditAxisPopUp import EditAxisPopUp
 
 class VcdatPanel(ActionsPage):
 
+    sidecar = False
+
     def __init__(self, driver, server=None):
         super(VcdatPanel, self).__init__(driver, server)
 
@@ -154,28 +156,60 @@ class VcdatPanel(ActionsPage):
         overlay_mode_id = "vcsmenu-overlay-mode-switch-vcdat"
         try:
             overlay_mode = self.find_element_by_id(overlay_mode_id,
-                                                   "Capture Provenance")
-            print("FOUND 'Capture Provenance' selector")
+                                                   "Overlay Mode")
+            print("FOUND 'Overlay Mode' selector")
             self.move_to_click(overlay_mode)
-            # time.sleep(self._delay)
         except NoSuchElementException as e:
-            print("Could not find 'Capture Provenance' selector")
+            print("Could not find 'Overlay Mode' selector")
             raise e
 
     def select_overlay_mode(self):
         try:
             self._click_on_overlay_mode()
-            # time.sleep(self._delay)
         except NoSuchElementException as e:
-            print("Could not select 'Capture Provenance'")
+            print("Could not select 'Overlay Mode'")
             raise e
 
     def deselect_overlay_mode(self):
         try:
             self._click_on_overlay_mode()
         except NoSuchElementException as e:
-            print("Could not deselect 'Capture Provenance'")
+            print("Could not deselect 'Overlay Mode'")
             raise e
+
+    #
+    # sidecar
+    #
+    def _click_on_sidecar(self):
+        sidecar_id = "vcsmenu-sidecar-switch-vcdat"
+        try:
+            sidecar = self.find_element_by_id(sidecar_id, "sidecar toggle")
+            print("FOUND 'Sidecar' option")
+            self.move_to_click(sidecar)
+            # time.sleep(self._delay)
+        except NoSuchElementException as e:
+            print("Could not find 'Sidecar' option")
+            raise e
+
+    def select_sidecar(self):
+        try:
+            self._click_on_sidecar()
+            self.sidecar = True
+            # time.sleep(self._delay)
+        except NoSuchElementException as e:
+            print("Could not select 'Sidecar'")
+            raise e
+
+    def deselect_sidecar(self):
+        try:
+            self._click_on_sidecar()
+            self.sidecar = False
+        except NoSuchElementException as e:
+            print("Could not deselect 'Sidecar'")
+            raise e
+
+    def is_sidecar_selected(self):
+        return self.sidecar
 
     #
     # variable related methods

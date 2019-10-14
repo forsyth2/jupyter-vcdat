@@ -28,6 +28,9 @@ class TestPlot(BaseTestCaseWithNoteBook):
         load_variable_popup.click_on_variable('v')
         load_variable_popup.click_on_load()
         vcdat_panel.click_on_plot()
+        is_sidecar_selected = vcdat_panel.is_sidecar_selected()
+        print("xxx sidecar: {}".format(is_sidecar_selected))
+        self.notebook.validate_image_is_displayed(is_sidecar_selected)
 
     def test_select_plot_type(self):
         test_file = "clt.nc"

@@ -13,21 +13,25 @@ class BaseTestCaseWithNoteBook(BaseTestCase):
         super(BaseTestCaseWithNoteBook, self).setUp()
         notebook_name = "{}.ipynb".format(self._testMethodName)
         launcher = "Python 3"
-        notebook = self.new_notebook(launcher, notebook_name)
-        self.notebooks = []
-        self.notebooks.append(notebook)
+        self.notebook = self.new_notebook(launcher, notebook_name)
+        #self.notebooks = []
+        #self.notebooks.append(notebook)
         self.create_workdir()
         print("\n")
 
     def tearDown(self):
-        for nb in self.notebooks:
-            self.save_close_notebook(nb)
+        #for nb in self.notebooks:
+        #    self.save_close_notebook(nb)
+        self.save_close_notebook(self.notebook)
         self.driver.quit()
+        nb_name = self.notebook.get_notebook_name()
+        print("...deleting '{}' notebook".format(nb_name))
+        os.remove(nb_name)
 
-        for nb in self.notebooks:
-            nb_name = nb.get_notebook_name()
-            print("...deleting '{}' notebook".format(nb_name))
-            os.remove(nb_name)
+        #for nb in self.notebooks:
+        #    nb_name = nb.get_notebook_name()
+        #    print("...deleting '{}' notebook".format(nb_name))
+        #    os.remove(nb_name)
 
     def create_workdir(self):
         this_dir = os.path.abspath(os.path.dirname(__file__))

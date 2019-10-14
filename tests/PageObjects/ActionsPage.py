@@ -20,7 +20,7 @@ class ActionsPage(Actions):
         self._validate_page()
 
     @abstractmethod
-    def _validate_page(self):
+    def _validate_page(self, title=None):
         return
 
     def load_page(self, server, expected_element=(By.TAG_NAME, 'html'),
