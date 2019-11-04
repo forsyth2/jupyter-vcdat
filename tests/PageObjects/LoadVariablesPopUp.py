@@ -54,7 +54,6 @@ class LoadVariablesPopUp(ActionsPage):
         locates the rows for variables, and return the elements.
         '''
         rows_locator = "//div[contains(@class, '{}')]/div".format(self._var_loader_items_class)
-        print("xxx xxx rows_locator: {}".format(rows_locator))
         try:
             rows = self.find_elements_by_xpath(rows_locator, 'variable rows')
             print("DEBUG DEBUG..._locate_all_variable_row_elements, num of rows: {}".format(len(rows)))
@@ -72,7 +71,6 @@ class LoadVariablesPopUp(ActionsPage):
         '''
         time.sleep(2)
         rows = self._locate_all_variable_row_elements()
-        print("XXX DEBUG...num of rows: {}".format(len(rows)))
 
         i = 0
         var_locator = ".//button[contains(@class, '{}')]".format(self._var_button_class)
@@ -159,7 +157,7 @@ class LoadVariablesPopUp(ActionsPage):
         print("DEBUG...axis_locator: {}".format(axes_locator))
         try:
             axes = row_for_var.find_elements_by_xpath(axes_locator)
-            print("DEBUG xxx...number of axis for variable '{v}': {n}".format(v=var,
+            print("DEBUG...number of axis for variable '{v}': {n}".format(v=var,
                                                                               n=len(axes)))
             return axes
         except NoSuchElementException as e:

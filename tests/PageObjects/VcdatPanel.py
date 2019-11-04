@@ -221,7 +221,6 @@ class VcdatPanel(ActionsPage):
                                                      "variable element")
             print("FOUND 'Capture Provenance' selector")
             state = var_element.get_attribute('class')
-            print("xxx xxx xxx xxx DEBUG...state: '{}'".format(state))
             self.move_to_click(var_element)
         except NoSuchElementException as e:
             print("Could not find variable '{}'".format(var))

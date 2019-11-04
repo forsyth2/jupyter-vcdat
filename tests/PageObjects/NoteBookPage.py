@@ -25,10 +25,6 @@ class NoteBookPage(MainPage):
         notebook_cell = nb_cells[len(nb_cells) - 1]
         return notebook_cell
 
-    def locate_image(self, notebook_cell_element):
-        image_locator = ".//img[@class='p-Widget jupyter-widgets widget-image']"
-        notebook_cell_element.find_element_by_xpath(image_locator)
-
     def new_notebook(self, launcher_title, notebook_name):
         print("...NoteBookPage.new_notebook...")
         self.click_on_folder_tab()
@@ -76,15 +72,11 @@ class NoteBookPage(MainPage):
         except NoSuchElementException:
             print("No 'Close without saving?' pop up")
 
-    def validate_image_is_displayed(self, is_sidecar_selected):
+    def validate_image_is_displayed(self):
         '''
         validates that an image is displayed in the last cell.
         '''
         print("...NoteBookPage.validate_image_is_displayed...")
-
-        if is_sidecar_selected:
-            print("REVISIT..")
-        else:
-            nb_cell = self.locate_last_notebook_cell()
-            self.locate_image(nb_cell)
+        nb_cell = self.locate_last_notebook_cell()
+        self.locate_image(nb_cell)
             

@@ -131,6 +131,17 @@ class MainPage(ActionsPage):
                 "NoSuchElementException...did not find specified launcher {}".format(title))
             raise e
 
+    def locate_image(self, element):
+        image_locator = ".//img[@class='p-Widget jupyter-widgets widget-image']"
+        try:
+            element.find_element_by_xpath(image_locator)
+            print("FOUND image...")
+        except NoSuchElementException as e:
+            print("FAIL...did not find image...")
+            raise e
+    #
+    #
+    #
     def click_on_notebook_launcher(self, title):
         element = self.locate_notebook_launcher(title)
         self.move_to_click(element)

@@ -7,6 +7,7 @@ sys.path.append(os.path.join(this_dir, 'TestUtils'))
 sys.path.append(os.path.join(this_dir, 'PageObjects'))
 
 from VcdatPanel import VcdatPanel
+from SidecarPage import SidecarPage
 from BaseTestCaseWithNoteBook import BaseTestCaseWithNoteBook
 
 
@@ -30,7 +31,14 @@ class TestPlot(BaseTestCaseWithNoteBook):
         vcdat_panel.click_on_plot()
         is_sidecar_selected = vcdat_panel.is_sidecar_selected()
         print("xxx sidecar: {}".format(is_sidecar_selected))
-        self.notebook.validate_image_is_displayed(is_sidecar_selected)
+        self.notebook.validate_image_is_displayed()
+
+        vcdat_panel.select_sidecar()
+        vcdat_panel.click_on_plot()
+        is_sidecar_selected = vcdat_panel.is_sidecar_selected()
+        print("xxx sidecar: {}".format(is_sidecar_selected))
+        sidecar = SidecarPage(self.driver, None)
+        sidecar.validate_image_is_displayed()
 
     def test_select_plot_type(self):
         test_file = "clt.nc"
