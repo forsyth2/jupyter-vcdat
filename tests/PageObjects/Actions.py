@@ -143,24 +143,6 @@ class Actions(object):
         ac.click(input_area).send_keys(text).key_down(Keys.ENTER).perform()
         time.sleep(self._delay)
 
-    def open_file_browser(self):
-        try:
-            self.dropdown_click(self.locate_running_tab())
-            self.dropdown_click(self.locate_file_tab())
-        except NoSuchElementException as e:
-            print(
-                "NoSuchElementException...could not open filebrowser")
-            raise e
-
-    def open_vcdat_widget(self):
-        try:
-            self.dropdown_click(self.locate_running_tab())
-            self.dropdown_click(self.locate_vcdat_icon())
-        except NoSuchElementException as e:
-            print(
-                "NoSuchElementException...could not open vcdat widget")
-            raise e
-
     def wait_till_element_is_visible(self, method, locator, descr):
         try:
             wait = WebDriverWait(self.driver, 20)
